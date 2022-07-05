@@ -76,6 +76,7 @@ int main(int, char **)
     try
     {
         std::vector<IP> ip_pool;
+        ip_pool.reserve(100);
         for (std::string line; std::getline(std::cin, line);) {
             std::vector<std::string> v = split(line, '\t');
             ip_pool.push_back(stringToIp(split(v.at(0), '.')));
