@@ -1,20 +1,12 @@
-
-
-#include <iostream>
+#include "ip_address.h"
 
 #include <cassert>
 #include <cstdlib>
-#include <iostream>
 
 #include <string>
-#include <vector>
-#include <array>
 
 #include <algorithm>
 
-
-
-using IP = std::array<uint8_t, 4>;
 
 std::vector<std::string> split(const std::string &str, char d)
 {
@@ -35,37 +27,6 @@ std::vector<std::string> split(const std::string &str, char d)
     return result;
 }
 
-IP stringToIp(const std::vector<std::string>& ip_str)
-{
-    IP ip;
-    auto ip_part {ip.begin()};
-    for (const auto& ip_part_str: ip_str) {
-        *ip_part = std::stoi(ip_part_str);
-        ip_part++;
-    }
-
-    return ip;
-}
-
-inline void printIp (const IP& ip)
-{
-    uint8_t cnt{0};
-    for (const auto& ip_part: ip) {
-        std::cout << int(ip_part);
-        if (++cnt != ip.size()) {
-            std::cout << ".";
-        }
-    }
-    std::cout << std::endl;
-}
-
-inline void printIpPool (const std::vector<IP>& ip_pool)
-{
-    for (const auto& ip: ip_pool) {
-        printIp (ip);
-    }
-}
-
 
 int main(int, char **)
 {
@@ -78,9 +39,10 @@ int main(int, char **)
     {
         std::vector<IP> ip_pool;
         ip_pool.reserve(100);
+
         for (std::string line; std::getline(std::cin, line);) {
             str_ip = split(line, '\t').at(0);
-            ip_pool.push_back(stringToIp(split(str_ip, '.')));
+            ip_pool.push_back( stringToIp(split(str_ip, '.')) );
         }
 
         // TODO reverse lexicographically sort

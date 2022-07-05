@@ -10,19 +10,15 @@ add_executable(ip_filter_cli main.cpp)
 option(WITH_BOOST_TEST "Whether to build Boost test" ON)
 
 
-set_target_properties(ip_filter_cli PROPERTIES
+
+set_target_properties(ip_filter_cli  PROPERTIES
     CXX_STANDARD 14
     CXX_STANDARD_REQUIRED ON
 )
 
 
-
-
 if (MSVC)
     target_compile_options(ip_filter_cli PRIVATE
-        /W4
-    )
-    target_compile_options(ip_filter PRIVATE
         /W4
     )
     if(WITH_BOOST_TEST)
@@ -34,8 +30,6 @@ else ()
     target_compile_options(ip_filter_cli PRIVATE
         -Wall -Wextra -pedantic -Werror
     )
-
-
 endif()
 
 install(TARGETS ip_filter_cli RUNTIME DESTINATION bin)
