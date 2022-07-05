@@ -73,13 +73,14 @@ int main(int, char **)
     //std::cout << "Version: " << version() << std::endl;
     //std::cout << "===================================\n";
 
+    std::string str_ip;
     try
     {
         std::vector<IP> ip_pool;
         ip_pool.reserve(100);
         for (std::string line; std::getline(std::cin, line);) {
-            std::vector<std::string> v = split(line, '\t');
-            ip_pool.push_back(stringToIp(split(v.at(0), '.')));
+            str_ip = split(line, '\t').at(0);
+            ip_pool.push_back(stringToIp(split(str_ip, '.')));
         }
 
         // TODO reverse lexicographically sort
@@ -118,6 +119,7 @@ int main(int, char **)
     }
     catch(const std::exception &e)
     {
+        std::cerr << "incorrect ip-address: " << str_ip << std::endl;
         std::cerr << e.what() << std::endl;
     }
 
